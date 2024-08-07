@@ -26,8 +26,10 @@ def test_register(client, app):
     (
         ("", "a","asdfds" ,"usuario o contraseña incorrecta."),
         ("a", "","safsd", "usuario o contraseña incorrecta."),
-        ("test", "test","saddsf", "ya esta registrado"),
         ("a","a","","error de email"),
+        ("test","tt","tet@gmail.com","Usuario test ya esta registrado."),
+        ("a","test","test@gmail.com", "email test@gmail.com ya esta registrado el email.")
+
     ),
 )
 def test_register_validate_input(client, username, password,email, message):
