@@ -24,10 +24,10 @@ def test_register(client, app):
 @pytest.mark.parametrize(
     ("username", "password","email", "message"),
     (
-        ("", "a","asdfds" ,"usuario requerido."),
-        ("a", "","safsd", "contraseña requerida."),
+        ("", "a","asdfds" ,"usuario o contraseña incorrecta."),
+        ("a", "","safsd", "usuario o contraseña incorrecta."),
         ("test", "test","saddsf", "ya esta registrado"),
-        ("a","a","a","error de mail")
+        ("a","a","","error de email"),
     ),
 )
 def test_register_validate_input(client, username, password,email, message):
@@ -55,8 +55,8 @@ def test_login(client, auth):
 
 @pytest.mark.parametrize(
     ("username", "password", "message"),
-    (("a", "test","", "usuario incorrecto."),
-     ("test", "a", "contraseña incorrecta.")),
+    (("a", "test", "usuario o contraseña incorrecta."),
+     ("test", "a", "usuario o contraseña incorrecta.")),
     
 )
 def test_login_validate_input(auth, username, password, message):
