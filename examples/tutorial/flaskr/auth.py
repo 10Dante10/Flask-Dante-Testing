@@ -122,3 +122,26 @@ def logout():
     """Clear the current session, including the stored user id."""
     session.clear()
     return redirect(url_for("index"))
+
+
+
+@bp.route('/auth/mod', methods=('GET', 'POST'))
+def modEmail():
+    if request.method == 'POST':
+        email = request.form['email']
+        error = None
+        db = get_db()
+
+        if not email:
+            error = "error de email"
+
+        if error is None:
+            db.execute(
+                'UPDATE user SET user_email = ? WHERE id = ?',
+                (email, g.user['id'])
+            )
+            db.commit()
+            return redirect(url_for('index'))
+        else:
+            flash(error)
+    return render_template('auth/update-mail.html')
